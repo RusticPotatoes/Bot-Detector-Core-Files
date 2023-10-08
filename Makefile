@@ -41,9 +41,12 @@ test-coverage: clean ## Run unit tests and check code coverage
 	PYTHONPATH=src python3 -m pytest --cov=src tests/ --disable-warnings
 
 docker-up: ## Startup docker
+	docker-compose up
+
+docker-build: ## Startup docker
 	docker-compose up --build
 
-setup: pre-commit-setup docker-up## setup & run after downloaded repo
+setup: pre-commit-setup docker-build ## setup & run after downloaded repo
 
 pre-commit-setup: ## Install pre-commit
 	pip install pre-commit
@@ -51,3 +54,6 @@ pre-commit-setup: ## Install pre-commit
 
 pre-commit: ## Run pre-commit
 	pre-commit run --all-files
+
+docker-down:
+	docker-compose down
