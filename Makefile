@@ -46,14 +46,23 @@ docker-up: ## Startup docker
 docker-build: ## Startup docker
 	docker-compose up --build
 
-setup: pre-commit-setup docker-build ## setup & run after downloaded repo
+setup: pre-commit-setup docker-build test-setup api-setup ## setup & run after downloaded repo
 
 pre-commit-setup: ## Install pre-commit
-	pip install pre-commit
+	python3 -m pip install pre-commit
 	pre-commit --version
 
 pre-commit: ## Run pre-commit
 	pre-commit run --all-files
 
+test-setup:
+	python3 -m pip install pytest
+
+requirements:
+	python3 -m pip install -r requirements.txt
+
 docker-down:
 	docker-compose down
+
+api-setup:
+	python3 -m pip install api
